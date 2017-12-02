@@ -14,7 +14,7 @@ namespace LinkerAnalyzer
 {
 	static class MainClass
 	{
-		static void Main (string[] args)
+		static int Main (string[] args)
 		{
 			bool showUsage = true;
 			bool showAllDeps = false;
@@ -29,9 +29,11 @@ namespace LinkerAnalyzer
 			bool verbose = false;
 			bool flatDeps = false;
 			string linkedPath = null;
+			string csvFile = null;
 
 			var optionsParser = new OptionSet () {
 				{ "a|alldeps", "show all dependencies", v => { showAllDeps = v != null; } },
+				{ "csvoutput=", "outputs types and optionally size analysis to CSV file", v => { csvFile = v; } },
 				{ "h|help", "show this message and exit.", v => showUsage = v != null },
 				{ "l|linkedpath=", "sets the linked assemblies directory path. Enables displaying size estimates.", v => { linkedPath = v; } },
 				{ "r|rawdeps=", "show raw vertex dependencies. Raw vertex VALUE is in the raw format written by linker to the dependency XML file. VALUE can be regular expression", v => { showRawDeps = v != null; rawName = v; } },
@@ -53,7 +55,8 @@ namespace LinkerAnalyzer
 				Console.WriteLine ("Usage:\n\n\tlinkeranalyzer [Options] <linker-dependency-file.xml.gz>\n\nOptions:\n");
 				optionsParser.WriteOptionDescriptions (Console.Out);
 				Console.WriteLine ();
-				return;
+
+				return 0;
 			}
 
 			string dependencyFile = args [args.Length - 1];
@@ -75,6 +78,8 @@ namespace LinkerAnalyzer
 				deps.ShowStat (verbose);
 			if (showRoots)
 				deps.ShowRoots ();
+			if (csvFile != null)
+				deps.SaveCSV (csvFile);
 			if (showRawDeps)
 				deps.ShowRawDependencies (rawName);
 			if (showTypeDeps)
@@ -83,6 +88,8 @@ namespace LinkerAnalyzer
 				deps.ShowAllDependencies ();
 			else if (showTypes)
 				deps.ShowTypesDependencies ();
+
+			return 0;
 		}
 	}
 }

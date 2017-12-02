@@ -138,5 +138,29 @@ namespace LinkerAnalyzer.Core
 		{
 			return new List<(VertexData vertex, int distance)> (AddDependencies (vertex, new HashSet<int> (), 0));
 		}
+
+		public void SaveCSV (string csvFile)
+		{
+			try {
+				using (var writer = new StreamWriter (csvFile)) {
+					var sizeStr = SpaceAnalyzer == null ? "" : "and size ";
+					Console.Write ($"Writing dependency {sizeStr}data ");
+					int i = 0;
+					foreach (var v in Types) {
+						var flatDeps = GetAllDependencies (v);
+						var info = flatDeps [0];
+						var sizeStr2 = SpaceAnalyzer == null ? "" : $",{SpaceAnalyzer.GetSize (info.vertex)},{SpaceAnalyzer.GetDepSize (info.vertex, this)}";
+						writer.WriteLine ($"{info.vertex.value},{flatDeps.Count}{sizeStr2}");
+						if (i % 100 == 0)
+							Console.Write (".");
+						i++;
+					}
+					Console.WriteLine ();
+					writer.Close ();
+				}
+			} catch (Exception e) {
+				Console.WriteLine ($"Unable to write CSV file to {csvFile}\n{e}");
+			}
+		}
 	}
 }
