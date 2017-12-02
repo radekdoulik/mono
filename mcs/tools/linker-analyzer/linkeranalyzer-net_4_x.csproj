@@ -56,6 +56,7 @@
     <Compile Include="..\..\class\Mono.Options\Mono.Options\Options.cs" />
     <Compile Include="ConsoleDependencyGraph.cs" />
     <Compile Include="LinkerAnalyzerCore\DependencyGraph.cs" />
+    <Compile Include="LinkerAnalyzerCore\SpaceAnalyzer.cs" />
     <Compile Include="Main.cs" />  </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -94,6 +95,10 @@
     <ProjectReference Include="../../class/System.XML/System.Xml-net_4_x.csproj">
       <Project>{87FD2F0F-5222-4AE6-BD63-2D4975E11E5B}</Project>
       <Name>System.Xml-net_4_x</Name>
+    </ProjectReference>
+    <ProjectReference Include="../../class/Mono.Cecil/Mono.Cecil-net_4_x.csproj">
+      <Project>{2C0D558F-0B38-4691-967E-A910A1B995C1}</Project>
+      <Name>Mono.Cecil-net_4_x</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

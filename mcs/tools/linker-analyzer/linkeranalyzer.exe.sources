@@ -2,4 +2,5 @@ ConsoleDependencyGraph.cs
 Main.cs
 
 LinkerAnalyzerCore/DependencyGraph.cs
+LinkerAnalyzerCore/SpaceAnalyzer.cs
 ../../class/Mono.Options/Mono.Options/Options.cs

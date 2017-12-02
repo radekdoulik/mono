@@ -4,7 +4,7 @@ include ../../build/rules.make
 
 PROGRAM = linkeranalyzer.exe
 
-LIB_REFS = System System.Xml System.Core
+LIB_REFS = System System.Xml System.Core Mono.Cecil
 LOCAL_MCS_FLAGS =
 
 include ../../build/executable.make
